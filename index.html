@@ -1,32 +1,381 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pepecoin</title>
-    <link rel="apple-touch-icon" href="./image/photo_2024-12-13_13-29-26.jpg">
-    <link rel="icon" sizes="192x192" href="./image/photo_2024-12-13_13-29-26.jpg">
-    <link rel="icon" href="./image/photo_2024-12-13_13-29-26.jpg" type="image/jpeg">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pepecoin 中文门户 | pepecoin.com.cn</title>
+    <link rel="apple-touch-icon" href="./image/favicon.svg" />
+    <link rel="icon" sizes="192x192" href="./image/favicon.svg">
+    <link rel="icon" href="./image/favicon.svg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        :root {
+            --primary: #16a34a;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f9fafb;
+            --radius: 16px;
+            --max-width: 1280px;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            max-height: 400px;
-            margin: 0 10px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, #16a34a, #0f172a);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        #loader img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        header {
+            background: linear-gradient(90deg, #16a34a, #10b981);
+            color: white;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: var(--max-width);
+            margin: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1100;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            /*overflow: hidden;*/
+            /*pointer-events: auto;*/
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 900;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: auto;
+            padding: 2rem 1rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.8s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #059669;
+        }
+
+        footer {
+            background-color: #e2e8f0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #475569;
+            padding: 2rem 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            nav {
+                /*flex-direction: column;*/
+                background: linear-gradient(90deg, #16a34a, #10b981);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 1rem;
+                max-height: 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            nav.active {
+                max-height: 500px;
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-overlay.active {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <img src="./image/photo_2025-05-13_14-51-21.jpg" alt="Pepecoin Logo">
+<div id="loader">
+    <img src="./image/favicon.svg" alt="Loading Logo">
+</div>
+<div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <img src="./image/favicon.svg" alt="Pepecoin Logo" />
+            <h1>Pepecoin 中文门户</h1>
+        </div>
+        <div class="nav-toggle" onclick="toggleNav()" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="main-nav">
+            <a href="#about" onclick="closeNav()">简介</a>
+            <a href="#links" onclick="closeNav()">官网</a>
+            <a href="#community" onclick="closeNav()">社区</a>
+            <a href="#price" onclick="closeNav()">行情</a>
+            <a href="#news" onclick="closeNav()">动态</a>
+            <a href="#nft" onclick="closeNav()">NFT</a>
+            <a href="#tools" onclick="closeNav()">工具</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section id="about" class="card">
+        <h2>关于 Pepecoin</h2>
+    </section>
+
+    <section id="links" class="card">
+        <h2>官网链接</h2>
+<!--        <ul>-->
+<!--            <li><a href="https://pepecoin.com" target="_blank">官方网站 pepecoin.com</a></li>-->
+<!--            <li><a href="https://pepeblocks.com" target="_blank">区块浏览器 pepeblocks.com</a></li>-->
+<!--            <li><a href="https://github.com/pepeteam" target="_blank">Github 仓库</a></li>-->
+<!--        </ul>-->
+    </section>
+
+    <section id="community" class="card">
+        <h2>社区信息</h2>
+<!--        <ul>-->
+<!--            <li><a href="https://t.me/pepecoin" target="_blank">Telegram 社区</a></li>-->
+<!--            <li><a href="https://twitter.com/pepecoins" target="_blank">Twitter 官方账号</a></li>-->
+<!--            <li><a href="https://discord.gg/pepecoin" target="_blank">Discord 频道</a></li>-->
+<!--        </ul>-->
+    </section>
+
+    <section id="price" class="card">
+        <h2>当前行情</h2>
+<!--        <p><strong>价格：</strong><span id="pep-price">$0.00018647</span></p>-->
+<!--        <p><strong>总供应量：</strong>96,961,140,625 PEP</p>-->
+<!--        <p><strong>下次减半：</strong>预计 2025 年 6 月 29 日</p>-->
+    </section>
+
+    <section id="news" class="card">
+        <h2>项目动态</h2>
+<!--        <ul>-->
+<!--            <li>2025-05-30：Pepecoin 完成第一个减半，区块高度达 500,000</li>-->
+<!--            <li>2025-04-15：中文门户正式上线</li>-->
+<!--        </ul>-->
+    </section>
+
+    <section id="nft" class="card">
+        <h2>NFT 生态</h2>
+<!--        <p>Pepecoin 社区正在构建以 Pepe 文化为核心的链上 NFT 生态，结合艺术、梗图与文化传承。</p>-->
+    </section>
+
+    <section id="tools" class="card">
+        <h2>实用工具</h2>
+<!--        <ul>-->
+<!--            <li><a href="https://pepeblocks.com" target="_blank">区块浏览器</a></li>-->
+<!--            <li><a href="https://github.com/pepeteam/pepecoin/releases" target="_blank">钱包下载</a></li>-->
+<!--            <li><a href="https://miningpoolstats.stream/pepecoin" target="_blank">挖矿池统计</a></li>-->
+<!--        </ul>-->
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Pepecoin 中文门户 pepecoin.com.cn | 设计 & 维护：社区志愿者
+</footer>
+
+<script>
+    function toggleNav() {
+        const nav = document.getElementById('main-nav');
+        const overlay = document.getElementById('nav-overlay');
+        const toggle = document.getElementById('navToggle');
+        const isOpen = nav.classList.contains('active');
+
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        toggle.classList.toggle('open');
+
+        document.body.style.overflow = isOpen ? 'auto' : 'hidden';
+    }
+
+    function closeNav() {
+        const nav = document.getElementById('main-nav');
+        const overlay = document.getElementById('nav-overlay');
+        const toggle = document.getElementById('navToggle');
+
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        toggle.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            loader.style.opacity = 0;
+            setTimeout(() => loader.style.display = 'none', 500);
+        }, 3000);
+    });
+</script>
 </body>
 </html>
