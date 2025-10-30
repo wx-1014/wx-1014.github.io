@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pepecoin 中文门户 | pepecoin.com.cn</title>
+    <title>pepecoin.com.cn</title>
     <link rel="apple-touch-icon" href="./image/favicon.svg" />
     <link rel="icon" sizes="192x192" href="./image/favicon.svg">
     <link rel="icon" href="./image/favicon.svg" type="image/jpeg">
@@ -263,87 +263,6 @@
     <img src="./image/favicon.svg" alt="Loading Logo">
 </div>
 <div class="nav-overlay" id="nav-overlay" onclick="closeNav()"></div>
-
-<header>
-    <div class="header-inner">
-        <div class="logo">
-            <img src="./image/favicon.svg" alt="Pepecoin Logo" />
-            <h1>Pepecoin 中文门户</h1>
-        </div>
-        <div class="nav-toggle" onclick="toggleNav()" id="navToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <nav id="main-nav">
-            <a href="#about" onclick="closeNav()">简介</a>
-            <a href="#links" onclick="closeNav()">官网</a>
-            <a href="#community" onclick="closeNav()">社区</a>
-            <a href="#price" onclick="closeNav()">行情</a>
-            <a href="#news" onclick="closeNav()">动态</a>
-            <a href="#nft" onclick="closeNav()">NFT</a>
-            <a href="#tools" onclick="closeNav()">工具</a>
-        </nav>
-    </div>
-</header>
-
-<main class="container">
-    <section id="about" class="card">
-        <h2>关于 Pepecoin</h2>
-    </section>
-
-    <section id="links" class="card">
-        <h2>官网链接</h2>
-<!--        <ul>-->
-<!--            <li><a href="https://pepecoin.com" target="_blank">官方网站 pepecoin.com</a></li>-->
-<!--            <li><a href="https://pepeblocks.com" target="_blank">区块浏览器 pepeblocks.com</a></li>-->
-<!--            <li><a href="https://github.com/pepeteam" target="_blank">Github 仓库</a></li>-->
-<!--        </ul>-->
-    </section>
-
-    <section id="community" class="card">
-        <h2>社区信息</h2>
-<!--        <ul>-->
-<!--            <li><a href="https://t.me/pepecoin" target="_blank">Telegram 社区</a></li>-->
-<!--            <li><a href="https://twitter.com/pepecoins" target="_blank">Twitter 官方账号</a></li>-->
-<!--            <li><a href="https://discord.gg/pepecoin" target="_blank">Discord 频道</a></li>-->
-<!--        </ul>-->
-    </section>
-
-    <section id="price" class="card">
-        <h2>当前行情</h2>
-<!--        <p><strong>价格：</strong><span id="pep-price">$0.00018647</span></p>-->
-<!--        <p><strong>总供应量：</strong>96,961,140,625 PEP</p>-->
-<!--        <p><strong>下次减半：</strong>预计 2025 年 6 月 29 日</p>-->
-    </section>
-
-    <section id="news" class="card">
-        <h2>项目动态</h2>
-<!--        <ul>-->
-<!--            <li>2025-05-30：Pepecoin 完成第一个减半，区块高度达 500,000</li>-->
-<!--            <li>2025-04-15：中文门户正式上线</li>-->
-<!--        </ul>-->
-    </section>
-
-    <section id="nft" class="card">
-        <h2>NFT 生态</h2>
-<!--        <p>Pepecoin 社区正在构建以 Pepe 文化为核心的链上 NFT 生态，结合艺术、梗图与文化传承。</p>-->
-    </section>
-
-    <section id="tools" class="card">
-        <h2>实用工具</h2>
-<!--        <ul>-->
-<!--            <li><a href="https://pepeblocks.com" target="_blank">区块浏览器</a></li>-->
-<!--            <li><a href="https://github.com/pepeteam/pepecoin/releases" target="_blank">钱包下载</a></li>-->
-<!--            <li><a href="https://miningpoolstats.stream/pepecoin" target="_blank">挖矿池统计</a></li>-->
-<!--        </ul>-->
-    </section>
-</main>
-
-<footer>
-    &copy; 2025 Pepecoin 中文门户 pepecoin.com.cn | 设计 & 维护：社区志愿者
-</footer>
-
 <script>
     function toggleNav() {
         const nav = document.getElementById('main-nav');
@@ -370,11 +289,9 @@
     }
 
     window.addEventListener('load', () => {
-        setTimeout(() => {
-            const loader = document.getElementById('loader');
-            loader.style.opacity = 0;
-            setTimeout(() => loader.style.display = 'none', 500);
-        }, 3000);
+        // const loader = document.getElementById('loader');
+        // loader.style.opacity = 0;
+        // setTimeout(() => loader.style.display = 'none', 500);
     });
 </script>
 </body>
